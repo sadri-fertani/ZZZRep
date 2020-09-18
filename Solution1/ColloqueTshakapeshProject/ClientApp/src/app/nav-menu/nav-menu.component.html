@@ -1,0 +1,36 @@
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <div class="container">
+            <a class="navbar-brand" [routerLink]="['/']">
+                <img src="../../assets/img/logo.png" style="width: 104px;height: 42px;" /> Colloque Tshakapesh
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-label="Toggle navigation" [attr.aria-expanded]="isExpanded" (click)="toggle()">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" [ngClass]="{ show: isExpanded }">
+                <app-login-menu></app-login-menu>
+                <ul class="navbar-nav flex-grow">
+                    <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
+                        <a class="nav-link text-dark" [routerLink]="['/']">
+                            <i class="fas fa-home"></i> Accueil
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown" *ngIf="IsAuthorized | async">
+                        <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-tasks"></i> Administration
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" [routerLink]="['/admin/ecoles']">Ecoles</a>
+                            <a class="dropdown-item" [routerLink]="['/admin/colloques']">Colloques</a>
+                            <a class="dropdown-item" [routerLink]="['/admin/fonctions']">Fonctions</a>
+                            <a class="dropdown-item" [routerLink]="['/admin/typeColloques']">Type Colloques</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" [routerLink]="['/admin/participants']">Participants</a>
+                            <a class="dropdown-item" [routerLink]="['/admin/inscriptions']">Inscriptions</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

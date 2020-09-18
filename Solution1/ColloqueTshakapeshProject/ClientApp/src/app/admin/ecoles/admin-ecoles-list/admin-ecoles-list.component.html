@@ -1,0 +1,53 @@
+<div class="container">
+    <h3>Liste des écoles</h3>
+    <br />
+    <form>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="">Nom de l'école</span>
+            </div>
+            <input type="text" class="form-control" name="searchString" placeholder="Tapez le nom pour rechercher..." [(ngModel)]="searchString" />
+        </div>
+    </form>
+    <br />
+    <div class="d-flex flex-row">
+        <a [routerLink]="['/admin/ecoles/add']" class="nav-link active" data-toggle="tooltip " title="Ajouter une nouvelle école">
+            <i class="fas fa-plus-square" aria-hidden="true"></i> &nbsp; Ajouter une école
+        </a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped table-sm">
+            <thead>
+                <tr>
+                    <th scope="col" style="width:60px;"></th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Courriel</th>
+                    <th scope="col">Téléphone</th>
+                    <th scope="col">Adresse</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let ecole of Ecoles | filter : 'nom' : searchString; let i = index">
+                    <td scope="row ">
+                        <div style="display: inline ">
+                            <a [routerLink]=" " (click)="openModalDelete(ecole)" data-toggle="tooltip" title="Supprimer">
+                                <i class="fas fa-trash "></i>
+                            </a>
+                            &nbsp;
+                            <a [routerLink]="[ '/admin/ecoles/edit', ecole.id] " data-toggle="tooltip" title="Modifier">
+                                <i class="far fa-edit "></i>
+                            </a>
+                        </div>
+                    </td>
+                    <td scope="row ">{{ ecole.nom }}</td>
+                    <td scope="row ">
+                        <a href="mailto:{{ ecole.email }} ">{{ ecole.email }}</a>
+                    </td>
+                    <td scope="row ">{{ ecole.telephone }}</td>
+                    <td scope="row ">{{ ecole.adresse }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <ngx-spinner></ngx-spinner>
+</div>

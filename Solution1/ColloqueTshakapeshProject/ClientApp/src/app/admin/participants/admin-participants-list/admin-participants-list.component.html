@@ -1,0 +1,57 @@
+<div class="container">
+
+    <h3>Liste des participants</h3>
+    <br />
+    <form>
+        <div class="form-row align-items-center">
+            <div class="input-group">
+                <div class="col input-group-prepend">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="">Prénom et nom</span>
+                    </div>
+                    <input type="text" class="form-control" name="searchPrenom" placeholder="Tapez le prénom pour rechercher..." [(ngModel)]="searchPrenom">
+                    <input type="text" class="form-control" name="searchNom" placeholder="Tapez le nom pour rechercher..." [(ngModel)]="searchNom">
+                </div>
+            </div>
+        </div>
+    </form>
+    <br />
+    <div class="table-responsive">
+        <table class="table table-striped table-sm">
+            <thead>
+                <tr>
+                    <th scope="col" style="width:30px;"></th>
+                    <th scope="col">Prénom</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Courriel</th>
+                    <th scope="col">Téléphone</th>
+                    <th scope="col">Ecole</th>
+                    <th scope="col">Fonction</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let participant of Participants | filter : 'prenom' : searchPrenom | filter : 'nom' : searchNom | paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
+                    <td scope="row ">
+                        <div style="display: inline ">
+                            <a [routerLink]="[ '/admin/participants/edit', participant.id] " data-toggle="tooltip" title="Modifier">
+                                <i class="far fa-edit "></i>
+                            </a>
+                        </div>
+                    </td>
+                    <td scope="row ">{{ participant.prenom }}</td>
+                    <td scope="row ">{{ participant.nom }}</td>
+                    <td scope="row ">
+                        <a href="mailto:{{ participant.courriel }} ">{{ participant.courriel }}</a>
+                    </td>
+                    <td scope="row ">{{ participant.telephone }}</td>
+                    <td scope="row ">{{ participant.ecoleName }}</td>
+                    <td scope="row ">{{ participant.fonctionName }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="text-align: center;">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+    </div>
+    <ngx-spinner></ngx-spinner>
+</div>

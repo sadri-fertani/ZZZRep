@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="SonarQube - APP-TEST-HOME Sonar way" ToolsVersion="16.0">
+  <Include Path="..\.sonarlint\app-test-homecsharp.ruleset" Action="Default" />
+</RuleSet>

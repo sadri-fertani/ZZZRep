@@ -1,0 +1,22 @@
+<div>
+    <div class="modal-header">
+        <h4 class="modal-title">Détails de la inscription</h4>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="card">
+            <div class="card-body">
+                <b>Inscription Id : </b>{{inscription.id}}<br />
+                <b>Colloque :       </b>{{inscription.colloqueName}}<br />
+                <b>Participant :    </b>{{inscription.participantPrenom}} {{inscription.participantName}} <br />
+                <b>Guid :           </b>{{inscription.guid }}<br />
+                <b>Date :           </b>{{inscription.dateCreation | date:'medium' }}<br />
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
+    </div>
+</div>

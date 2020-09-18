@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using ColloqueTshakapeshProject.Data;
+@using ColloqueTshakapeshProject.Services;
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@inject ICustomConfigManager CustomManager
+
+@{
+    string returnUrl = null;
+    var query = ViewContext.HttpContext.Request.Query;
+    if (query.ContainsKey("returnUrl"))
+    {
+        returnUrl = query["returnUrl"];
+    }
+}
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/">
+                <i class="fas fa-sign-out-alt"></i>
+                Se déconnecter
+            </a>
+        </li>
+    }
+    else
+    {
+        @if (CustomManager.IsAllowRegister())
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register" asp-route-returnUrl="@returnUrl">
+                    <i class="fas fa-plus-square"></i>
+                    S'inscrire
+                </a>
+            </li>
+        }
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@returnUrl">
+                <i class="fas fa-sign-in-alt"></i>
+                Se connecter
+            </a>
+        </li>
+    }
+</ul>

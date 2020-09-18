@@ -1,0 +1,42 @@
+<div class="container">
+    <div class="jumbotron" *ngIf="!(IsAuthorized | async)">
+        <h1 class="display-4">Colloque Tshakapech 2020</h1>
+        <div class="date">Du X Octobre 2020 au Y Octobre 2020</div>
+        <p class="lead">
+            L’Institut Tshakapesh souligne 42 ans d’histoire. Cette édition d’un colloque visant les trois volets de la mission de l’organisation est fort stratégique dans ce contexte. Sous le thème « Ashineun | Fierté – Eshi-uinitishut auen | Identité – E tananut|
+            Présence », cet événement rassembleur vise l’atteinte d’un objectif très spécifique, celui que chaque enfant ait les mêmes chances de réussir son parcours scolaire et sa quête identitaire. Les représentants des communautés membres ont été
+            désignés, majoritairement des parents, des membres du personnel des écoles, des aînés de même que des personnes désignées pour leur intérêt pour les volets langue et culture.
+        </p>
+        <hr class="my-4" />
+        <p>
+            L’inscription n’est possible qu’à partir de ce <a href="" [routerLink]="['/home/inscription']">formulaire
+                électronique</a>.
+        </p>
+    </div>
+    <div class="jumbotron" *ngIf="IsAuthorized | async">
+        <div *ngIf="IsAllowRegister | async" class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>L'Inscription d'un administrateur est autorisé.</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <h3>Administration</h3>
+        <br />
+        <h6><u>Quelques Raccourcis</u></h6>
+        <br />
+        <div class="row">
+            <div class="col-6">
+                <div class="list-group" role="tablist">
+                    <a class="list-group-item list-group-item-action" data-toggle="list" role="tab" [routerLink]="['/admin/colloques/add']">Ajouter une colloque</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list" role="tab" [routerLink]="['/admin/ecoles/add']">Ajouter une école</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list" role="tab" [routerLink]="['/home/inscription']">Inscrire un participant</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list" role="tab" [routerLink]="['/admin/participants']">Gérer les participants</a>
+                    <a class="list-group-item list-group-item-action" data-toggle="list" role="tab" [routerLink]="['/admin/inscriptions']">Gérer les inscriptions</a>
+                    <a class="list-group-item list-group-item-action" href="/hangfire/">Backup dashboard</a>
+                    <a class="list-group-item list-group-item-action" href="" *ngIf="!(IsAllowRegister | async)" data-toggle="list" role="tab" (click)="updateFlagAllowRegister(true)">Activer l'inscription d'un administrateur</a>
+                    <a class="list-group-item list-group-item-action list-group-item-warning" href="" *ngIf="IsAllowRegister | async" data-toggle="list" role="tab" (click)="updateFlagAllowRegister(false)">Désactiver l'inscription d'un administrateur</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,138 @@
+<div class="container">
+    <ul ngbNav #nav="ngbNav" [(activeId)]="active" (navChange)="onNavChange($event)" class="nav-tabs">
+        <li [ngbNavItem]="1">
+            <a ngbNavLink><b>Colloques</b></a>
+            <ng-template ngbNavContent>
+                <div class="container">
+                    <div class="card m-3">
+                        <div class="card-body">
+                            <form [formGroup]="newColloquesChoicesForm" (ngSubmit)="onSubmitColloquesChoicesForm()">
+
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col"></th>
+                                            <th scope="col" style="text-align: center;vertical-align:middle;">Titre</th>
+                                            <th scope="col" style="text-align: center;vertical-align:middle;">Type</th>
+                                            <th scope="col" style="text-align: center;vertical-align:middle;">Emplacement</th>
+                                            <th scope="col" style="text-align: center;vertical-align:middle;width: 50px;">Place disponible</th>
+                                            <th scope="col" style="text-align: center;vertical-align:middle;width: 50px;">Durée (minutes)</th>
+                                            <th scope="col" style="text-align: center;vertical-align:middle;width: 250px;">Date</th>
+                                            <th scope="col" style="text-align: center;vertical-align:middle;">Coût ($)
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngIf="listColloques">
+                                        <tr *ngFor="let control of colloquesFormArray?.controls; let i = index;">
+                                            <th scope="row">
+                                                <div class="checkbox" (click)="sendMessage($event.target.checked, listColloques[i].id)" *ngIf="listColloques[i]?.nombreParticipantMax - listColloques[i]?.inscriptions.length > 0 || isBookedLastTime(listColloques[i].id) ">
+                                                    <input id="chk-{{listColloques[i]?.id}}" type="checkbox" [formControl]="control" />
+                                                </div>
+                                            </th>
+                                            <td tooltip="{{listColloques[i]?.description}}" placement="right" delay="125">
+                                                <label for="chk-{{listColloques[i]?.id}}">
+                                                    {{listColloques[i]?.titre}}
+                                                </label>
+                                            </td>
+                                            <td>{{listColloques[i]?.typeName}}</td>
+                                            <td>{{listColloques[i]?.emplacement}}</td>
+                                            <td style="text-align: center;" id="th-dispo-{{listColloques[i]?.id}}">
+                                                {{listColloques[i]?.nombreParticipantMax - listColloques[i]?.inscriptions.length}}/{{listColloques[i]?.nombreParticipantMax}}
+                                            </td>
+                                            <td style="text-align: right;">{{listColloques[i]?.dureeColloque}}</td>
+                                            <td>{{listColloques[i]?.dateColloque | customDate }}</td>
+                                            <td style="text-align: right;">{{listColloques[i]?.cout}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="text-center">
+                                    <button class="btn btn-primary mr-1" [disabled]="!newColloquesChoicesForm.valid || !listColloques || !newColloquesChoicesForm.dirty">
+                                        Suivant
+                                        &nbsp;
+                                        <i class="fas fa-arrow-right"></i>
+                                    </button>
+                                    <button class="btn btn-outline-secondary" type="reset" (click)="onClose()">
+                                        Abandonner
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </li>
+        <li [ngbNavItem]="2" [disabled]="!newColloquesChoicesForm.valid || !listColloques">
+            <a ngbNavLink><b>Résumé</b></a>
+            <ng-template ngbNavContent>
+                <div id="accordion">
+                    <div class="card">
+                        <div class="card-header" id="headingTwo">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                    Colloques choisis
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo">
+                            <div class="card-body">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="text-align: center;">Titre</th>
+                                            <th scope="col" style="text-align: center;">Durée (minutes)</th>
+                                            <th scope="col" style="text-align: center;">Date</th>
+                                            <th scope="col" style="text-align: center;">Coût ($)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ng-container *ngFor="let control of colloquesFormArray?.controls; let i = index;">
+                                            <tr *ngIf="fColloquesChoices.colloquesFormArray.value[i]">
+                                                <td tooltip="{{listColloques[i]?.description}}" placement="right" delay="125">
+                                                    {{listColloques[i]?.titre}}
+                                                </td>
+                                                <td style="text-align: right;">{{listColloques[i]?.dureeColloque}}</td>
+                                                <td>{{listColloques[i]?.dateColloque | customDate }}</td>
+                                                <td style="text-align: right;">{{listColloques[i]?.cout}}</td>
+                                            </tr>
+                                        </ng-container>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th style="text-align: right;" colspan="3">
+                                                <div class="th-inner">Total</div>
+                                            </th>
+                                            <th style="text-align: right;">
+                                                <div class="th-inner">{{getTotalCout()}}
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br />
+
+                <div class="text-center">
+                    <button class="btn btn-primary mr-1" (click)="goNextNav(active-1)">
+                        <i class="fas fa-arrow-left"></i>
+                        &nbsp;
+                        Précédent
+                    </button>
+                    <button class="btn btn-success mr-1" [disabled]="!newColloquesChoicesForm.valid || !listColloques || !newColloquesChoicesForm.dirty" (click)="onUpdateInscription()">
+                        <i class="fas fa-check-circle"></i>
+                        &nbsp;
+                        Confirmer
+                    </button>
+                    <button class="btn btn-outline-secondary" type="reset" (click)="onClose()">
+                        Abandonner
+                    </button>
+                </div>
+            </ng-template>
+        </li>
+    </ul>
+    <div #NavOutlet [ngbNavOutlet]="nav" class="mt-2"></div>
+    <ngx-spinner></ngx-spinner>
+</div>

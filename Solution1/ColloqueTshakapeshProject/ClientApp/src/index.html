@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Colloque Tshakapesh</title>
+    <base href="/" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+    <script src="https://kit.fontawesome.com/cc0e17c7b6.js" crossorigin="anonymous"></script>
+
+    <style>
+        .time-picker-input-invalide {
+            border-color: #dc3545 !important;
+        }
+        
+        .svgload {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+        
+        .ng-tooltip {
+            position: absolute;
+            max-width: 500px;
+            font-size: 14px;
+            text-align: center;
+            color: #f8f8f2;
+            padding: 3px 8px;
+            background: #282a36;
+            border-radius: 4px;
+            z-index: 1000;
+            opacity: 0;
+        }
+        
+        .ng-tooltip:after {
+            content: "";
+            position: absolute;
+            border-style: solid;
+        }
+        
+        .ng-tooltip-top:after {
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-color: black transparent transparent transparent;
+        }
+        
+        .ng-tooltip-bottom:after {
+            bottom: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-color: transparent transparent black transparent;
+        }
+        
+        .ng-tooltip-left:after {
+            top: 50%;
+            left: 100%;
+            margin-top: -5px;
+            border-width: 5px;
+            border-color: transparent transparent transparent black;
+        }
+        
+        .ng-tooltip-right:after {
+            top: 50%;
+            right: 100%;
+            margin-top: -5px;
+            border-width: 5px;
+            border-color: transparent black transparent transparent;
+        }
+        
+        .ng-tooltip-show {
+            opacity: 1;
+        }
+    </style>
+
+</head>
+
+<body>
+    <app-root>
+        <div class="svgload">
+            <img style="width:100px;" src="./assets/svg/ball-triangle.svg" alt="">
+        </div>
+    </app-root>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+
+</html>

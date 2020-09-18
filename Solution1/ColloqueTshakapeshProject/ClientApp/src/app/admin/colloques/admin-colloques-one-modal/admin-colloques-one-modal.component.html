@@ -1,0 +1,26 @@
+<div>
+    <div class="modal-header">
+        <h4 class="modal-title">Détails de la colloque</h4>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="card">
+            <div class="card-body">
+                <b>Titre : </b>{{colloque.titre}}<br />
+                <b>Description : </b>{{colloque.description}}<br />
+                <b>Type : </b>{{colloque.typeName}}<br />
+                <b>Coût de participation : </b>{{colloque.cout}} $<br />
+                <b>Responsable : </b>{{colloque.responsable}}<br />
+                <b>Emplacement : </b>{{colloque.emplacement}}<br />
+                <b>Place disponible : </b>{{colloque.nombreParticipantMax - colloque.inscriptions.length}}/{{colloque.nombreParticipantMax}}<br />
+                <b>Durée : </b>{{colloque.dureeColloque}} minutes<br />
+                <b>Date : </b>{{colloque.dateColloque | customDate }}<br />
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
+    </div>
+</div>

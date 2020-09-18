@@ -1,0 +1,85 @@
+<div class="container">
+    <h3>Liste d'inscriptions</h3>
+    <br />
+    <form>
+        <div class="form-row align-items-center">
+            <div class="input-group mb-3">
+                <div class="col input-group-prepend">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Colloque</span>
+                    </div>
+                    <select id="selType" name="typeId" class="form-control" [(ngModel)]="searchColloque">
+            <option value="" selected>Choisir...</option>
+            <option *ngFor="let opt of (listColloques$ | async)" [value]="opt.titre"
+              [selected]="opt.titre == searchColloque">
+              {{opt.titre}}
+            </option>
+          </select>
+                </div>
+                <div class="col input-group-prepend">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="">Guid</span>
+                    </div>
+                    <input type="text" class="form-control" name="searchGuid" placeholder="Tapez le guid pour rechercher..." [(ngModel)]="searchGuid" />
+                </div>
+            </div>
+            <div class="input-group">
+                <div class="col input-group-prepend">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="">Prénom et nom</span>
+                    </div>
+                    <input type="text" class="form-control" name="searchPrenom" placeholder="Tapez le prénom pour rechercher..." [(ngModel)]="searchPrenom">
+                    <input type="text" class="form-control" name="searchNom" placeholder="Tapez le nom pour rechercher..." [(ngModel)]="searchNom">
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex flex-row-reverse">
+            <a [routerLink]=" " class="nav-link active" (click)=" generatePdf()" data-toggle="tooltip " title="Générer pdf">
+                <i class="far fa-file-pdf fa-w-12 fa-3 "></i> Exporter
+            </a>
+        </div>
+    </form>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-sm" id="contentToConvert">
+            <thead>
+                <tr>
+                    <th scope="col" style="width:90px;"></th>
+                    <th scope="col">Participant</th>
+                    <th scope="col" *ngIf="searchColloque == ''">Colloque</th>
+                    <th scope="col">Guid</th>
+                    <th scope="col">Date</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let inscription of Inscriptions | filter : 'guid' : searchGuid | filter : 'participantPrenom' : searchPrenom | filter : 'participantName' : searchNom | filter : 'colloqueName' : searchColloque | paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
+                    <td scope="row ">
+                        <div style="display: inline ">
+                            <a [routerLink]=" " (click)="openModalDetails(inscription)" data-toggle="tooltip " title="Visualiser">
+                                <i class="fas fa-search "></i>
+                            </a>
+                            &nbsp;
+                            <a [routerLink]=" " (click)="openModalDelete(inscription)" data-toggle="tooltip " title="Supprimer ">
+                                <i class="fas fa-trash "></i>
+                            </a>
+                            &nbsp;
+                            <a [routerLink]=" " (click)=" generateOnePdf(inscription)" data-toggle="tooltip " title="Générer pdf">
+                                <i class="far fa-file-pdf fa-w-12 fa-3 "></i>
+                            </a>
+                        </div>
+                    </td>
+                    <td scope="row">{{ inscription.participantPrenom}} {{ inscription.participantName }}</td>
+                    <td scope="row" *ngIf="searchColloque == ''">{{ inscription.colloqueName }}</td>
+                    <td scope="row">{{ inscription.guid }}</td>
+                    <td scope="row">{{ inscription.dateCreation | date:'medium' }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="text-align: center;">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+    </div>
+    <ngx-spinner></ngx-spinner>
+</div>

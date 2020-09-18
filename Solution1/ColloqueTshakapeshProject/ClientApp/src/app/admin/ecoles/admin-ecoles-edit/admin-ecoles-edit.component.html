@@ -1,0 +1,40 @@
+<div class="container">
+    <div class="card m-3">
+        <h3>Modification de l'école {{ecole ? ecole!.nom : ''}}</h3>
+        <br />
+        <div class="card-body">
+            <form [formGroup]="oldEcoleForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <font color="red">*</font>&nbsp;<label for="iNomEcole">Nom</label>
+                    <input id="iNomEcole" type="text" formControlName="nom" class="form-control" placeholder="Nom de l'école" [ngClass]="{ 'is-invalid': f.nom.errors && f.nom.dirty }" />
+                    <div *ngIf="f.nom.errors && f.nom.dirty" class="invalid-feedback">
+                        <div *ngIf="f.nom.errors.required">Le nom de l'école est obligatoire</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="iMail">Courriel</label>
+                    <input id="iMail" type="text" formControlName="email" class="form-control" placeholder="exemple@domaine" [ngClass]="{ 'is-invalid': f.email.errors && f.email.dirty }" />
+                    <div *ngIf="f.email.errors && f.email.dirty" class="invalid-feedback">
+                        <div *ngIf="f.email.errors.email">Le courriel n'est pas valide</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="iTelephone">Téléphone</label>
+                    <input id="iTelephone" type="text" formControlName="telephone" maxlength="14" phoneMask [preValue]="oldEcoleForm.value.telephone" placeholder="(___) ___-____" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <font color="red">*</font>&nbsp;<label for="tAdresse">Adresse</label>
+                    <textarea id="tAdresse" formControlName="adresse" class="form-control" placeholder="Adresse&#10;Cité Province Code postale" rows="3" [ngClass]="{ 'is-invalid': f.adresse.errors && f.adresse.dirty }"></textarea>
+                    <div *ngIf="f.adresse.errors && f.adresse.dirty" class="invalid-feedback">
+                        <div *ngIf="f.adresse.errors.required">L'adresse de l'école est obligatoire</div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-primary mr-1" [disabled]="!oldEcoleForm.valid || !oldEcoleForm.dirty">Modifier</button>
+                    <button class="btn btn-secondary" type="reset" (click)="onReset()">Abandonner</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <ngx-spinner></ngx-spinner>
+</div>

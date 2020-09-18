@@ -1,0 +1,94 @@
+<div class="container">
+    <div class="card m-3">
+        <h3>Nouvelle colloque</h3>
+        <br />
+        <div class="card-body">
+            <form [formGroup]="newColloqueForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <font color="red">*</font>&nbsp;<label for="iTitre">Titre</label>
+                    <input id="iTitre" type="text" formControlName="titre" placeholder="Titre de la colloque" class="form-control" [ngClass]="{ 'is-invalid': f.titre.errors && f.titre.dirty }" />
+                    <div *ngIf="f.titre.errors && f.titre.dirty" class="invalid-feedback">
+                        <div *ngIf="f.titre.errors.required">Le titre de la colloque est obligatoire</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <font color="red">*</font>&nbsp;<label for="selType">Type</label>
+                    <select id="selType" formControlName="typeId" class="form-control" [ngClass]="{ 'is-invalid': f.typeId.errors && f.typeId.dirty }">
+                        <option value="">Choisir...</option>
+                        <option *ngFor="let opt of (listTypeColloques$ | async)" [value]="opt.id"
+                            [selected]="opt.id == f.typeId.value">{{opt.nom}}
+                        </option>
+                    </select>
+                    <div *ngIf="f.typeId.errors && f.typeId.dirty" class="invalid-feedback">
+                        <div *ngIf="f.typeId.errors.required">Le type de la colloque est obligatoire</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="tDescription">Description</label>
+                    <textarea id="tDescription" placeholder="Description" formControlName="description" class="form-control" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <font color="red">*</font>&nbsp;<label for="iCout">Coût de la participation</label>
+                    <input id="iCout" type="number" placeholder="0" formControlName="cout" class="form-control" [ngClass]="{ 'is-invalid': f.cout.errors && f.cout.dirty }" />
+                    <div *ngIf="f.cout.errors && f.cout.dirty" class="invalid-feedback">
+                        <div *ngIf="f.cout.errors.required">Le coût de la participation est obligatoire</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <font color="red">*</font>&nbsp;<label for="iEmplacement">Emplacement</label>
+                    <input id="iEmplacement" type="text" placeholder="Emplacement de la colloque" formControlName="emplacement" class="form-control" [ngClass]="{ 'is-invalid': f.emplacement.errors && f.emplacement.dirty }" />
+                    <div *ngIf="f.emplacement.errors && f.emplacement.dirty" class="invalid-feedback">
+                        <div *ngIf="f.emplacement.errors.required">L'emplacement de la colloque est obligatoire</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="iResponsable">Responsable</label>
+                    <input id="iResponsable" type="text" formControlName="responsable" placeholder="Responsable de la colloque" class="form-control" [ngClass]="{ 'is-invalid': f.responsable.errors && f.responsable.dirty }" />
+                </div>
+                <div class="form-group">
+                    <font color="red">*</font>&nbsp;<label for="iNombreParticipantMax">Nombre de participants
+                        maximum</label>
+                    <input id="iNombreParticipantMax" placeholder="0" type="number" formControlName="nombreParticipantMax" class="form-control" [ngClass]="{ 'is-invalid': f.nombreParticipantMax.errors && f.nombreParticipantMax.dirty }" />
+                    <div *ngIf="f.nombreParticipantMax.errors && f.nombreParticipantMax.dirty" class="invalid-feedback">
+                        <div *ngIf="f.nombreParticipantMax.errors.required">Le nombre de participants maximum à la colloque est obligatoire</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <font color="red">*</font>&nbsp;<label for="iDureeColloque">Durée</label> (minutes)
+                    <input id="iDureeColloque" type="number" placeholder="0" formControlName="dureeColloque" class="form-control" [ngClass]="{ 'is-invalid': f.dureeColloque.errors && f.dureeColloque.dirty }" />
+                    <div *ngIf="f.dureeColloque.errors && f.dureeColloque.dirty" class="invalid-feedback">
+                        <div *ngIf="f.dureeColloque.errors.required">La durée de la colloque est obligatoire</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <font color="red">*</font>&nbsp;<label for="iDateColloque">Date</label>
+                    <div class="input-group">
+                        <input id="iDateColloque" class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="dateColloque" ngbDatepicker #d="ngbDatepicker" [ngClass]="{ 'is-invalid': f.dateColloque.errors && f.dateColloque.dirty }">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" (click)="d.toggle()" title="Ouvrir le calendrier" type="button">
+                                <i class="fas fa-calendar-alt"></i>
+                            </button>
+                        </div>
+                        <div *ngIf="f.dateColloque.errors && f.dateColloque.dirty" class="invalid-feedback">
+                            <div *ngIf="f.dateColloque.errors.required">La date de la colloque est obligatoire</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <font color="red">*</font>&nbsp;<label for="iHeureColloque">Heure</label>
+                    <div class="input-group" [ngClass]="{ 'is-invalid': f.heureColloque.errors && f.heureColloque.dirty }">
+                        <ngb-timepicker id="iHeureColloque" formControlName="heureColloque" [ngClass]="{ 'is-invalid': f.heureColloque.errors && f.heureColloque.dirty }">
+                        </ngb-timepicker>
+                        <div *ngIf="f.heureColloque.errors && f.heureColloque.dirty" class="invalid-feedback">
+                            <div *ngIf="f.heureColloque.errors.required">L'horaire de la colloque est obligatoire</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-primary mr-1" [disabled]="!newColloqueForm.valid">Ajouter</button>
+                    <button class="btn btn-secondary" type="reset" (click)="onReset()">Abandonner</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

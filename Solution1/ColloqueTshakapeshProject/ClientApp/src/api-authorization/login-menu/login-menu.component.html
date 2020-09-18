@@ -1,0 +1,17 @@
+<ng-container>
+    <ul class="navbar-nav" *ngIf="isAuthenticated | async">
+        <li class="nav-item">
+            <a class="nav-link text-dark" [routerLink]='["/authentication/logout"]' [state]='{ local: true }' title="Se déconnecter">
+                <i class="fas fa-sign-out-alt"></i> Se déconnecter
+            </a>
+        </li>
+    </ul>
+    <ul class="navbar-nav" *ngIf="!(isAuthenticated | async)">
+        <li class="nav-item">
+            <a class="nav-link text-dark" [routerLink]='["/authentication/login"]'>
+                <i class="fas fa-sign-in-alt"></i> Se connecter
+            </a>
+        </li>
+    </ul>
+    <ngx-spinner></ngx-spinner>
+</ng-container>

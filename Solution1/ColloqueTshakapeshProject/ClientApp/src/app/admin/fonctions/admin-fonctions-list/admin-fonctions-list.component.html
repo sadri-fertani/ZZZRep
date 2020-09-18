@@ -1,0 +1,45 @@
+<div class="container">
+    <h3>Liste des fonction</h3>
+    <br />
+    <form>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="">Nom de la fonction</span>
+            </div>
+            <input type="text" class="form-control" name="searchString" placeholder="Tapez le nom pour rechercher..." [(ngModel)]="searchString" />
+        </div>
+    </form>
+    <br />
+    <div class="d-flex flex-row">
+        <a [routerLink]="['/admin/fonctions/add']" class="nav-link active" data-toggle="tooltip " title="Ajouter une nouvelle fonction">
+            <i class="fas fa-plus-square" aria-hidden="true"></i> &nbsp; Ajouter une nouvelle fonction
+        </a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped table-sm" id="contentToConvert">
+            <thead>
+                <tr>
+                    <th scope="col" style="width:60px;"></th>
+                    <th scope="col">Nom</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let fonction of Fonctions | filter : 'nom' : searchString; let i = index">
+                    <td scope="row ">
+                        <div style="display: inline ">
+                            <a [routerLink]=" " (click)="openModalDelete(fonction)" data-toggle="tooltip " title="Supprimer ">
+                                <i class="fas fa-trash "></i>
+                            </a>
+                            &nbsp;
+                            <a [routerLink]="[ '/admin/fonctions/edit', fonction.id] " data-toggle="tooltip " title="Modifier ">
+                                <i class="far fa-edit "></i>
+                            </a>
+                        </div>
+                    </td>
+                    <td scope="row ">{{ fonction.nom }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <ngx-spinner></ngx-spinner>
+</div>

@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="card m-3">
+        <h3>Modification du type colloque {{typeColloque ? typeColloque!.nom : ''}}</h3>
+        <br />
+        <div class="card-body">
+            <form [formGroup]="oldTypeColloqueForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <font color="red">*</font>&nbsp;<label for="iNomTypeColloque">Nom</label>
+                    <input id="iNomTypeColloque" type="text" formControlName="nom" placeholder="Nom du type colloque" class="form-control" [ngClass]="{'is-invalid': f.nom.errors && f.nom.dirty }" />
+                    <div *ngIf="f.nom.errors && f.nom.dirty" class="invalid-feedback">
+                        <div *ngIf="f.nom.errors.required">Le nom du type colloque est obligatoire</div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button class="btn btn-primary mr-1" [disabled]="!oldTypeColloqueForm.valid || !oldTypeColloqueForm.dirty">Modifier</button>
+                    <button class="btn btn-secondary" type="reset" (click)="onReset()">Abandonner</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
